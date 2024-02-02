@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Praktinis</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: Eina-Regular, Verdana, Geneva, Tahoma, sans-serif;
+      }
+
+      .main {
+        width: 750px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        color: #114954;
+      }
+
+      p {
+        margin-top: 30px;
+      }
+
+      .row {
+        margin-left: 10%;
+      }
+
+      .icon {
+        float: left;
+        width: 43px;
+        height: 48px;
+        border: 1px solid #CEDCEA;
+        padding: 10px;
+        color: rgb(199, 199, 199);
+      }
+
+      .element-container {
+  margin: 20px 0;
+  
+}
+
+.element-label {
+  margin-right: 10px; 
+}
+
+      [active] {
+        color: #114954;
+      }
+    </style>
+
+    <script>
+      const rowDiv = '<div class="row"></div>';
+      const iconDiv = `<div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="currentColor">
+          <rect width="48" height="48" rx="5" ry="5" />
+        </svg>
+      </div>`;
+      const endDiv = '<div style="clear:both;"></div>';
+
+      const w = () => {
+        const queryMatchForWidth = window.location.href.match(/(?:[?&]width=)([3-9])/);
+        return queryMatchForWidth ? parseInt(queryMatchForWidth[1]) : 3;
+      };
+
+      const h = () => {
+        const queryMatchForHeight = window.location.href.match(/(?:[?&]height=)([3-9])/);
+        return queryMatchForHeight ? parseInt(queryMatchForHeight[1]) : 3;
+      };
+
+      const prepareMainGrid = () => {
+        const mainGrid = document.querySelector('.mainGrid');
+        for (let i = 0; i < h(); i++) mainGrid.innerHTML += rowDiv;
+        document.querySelectorAll('.mainGrid .row').forEach((row) => {
+          for (let i = 0; i < w(); i++) row.innerHTML += iconDiv;
+          row.innerHTML += endDiv;
+        });
+        document.querySelectorAll('.mainGrid .row .icon').forEach((icon) => icon.setAttribute('onclick', 'activateCell(this)'));
+      };
+
+      const init = () => {
+        prepareMainGrid();
+        const easyModeCheckbox = document.querySelector('.easyMode');
+        easyModeCheckbox.addEventListener('change', () => enableEasyMode(easyModeCheckbox));
+
+        document.querySelector('.easyMode').checked = false; 
+        enableEasyMode(easyModeCheckbox);
+      };
+
+
+     
+
+      const activateCell = (el) => {
+        if (!el.getAttribute('active')) el.setAttribute('active', 'true');
+        else el.removeAttribute('active');
+
+        if (
+          Array.from(document.querySelectorAll('.mainGrid .row .icon')).every(el => el.getAttribute('active'))
+          
+        ) {
+          const queryMatchForWidth = window.location.href.match(/(?:[?&]width=)([3-9])/);
+          let s = queryMatchForWidth ? parseInt(queryMatchForWidth[1]) + 1 : 4;
+       
+
+
+          if (s > 9) {
+      document.querySelector(".mainGrid").style.display = "none";
+     
+     
+      alert('DONE! Congratulations on completing the task!')
+      s = 3;
+      window.location.href = `${window.location.href.split("?")[0]}?width=${s}&height=${s}`;
+    } else {
+      alert(` Next level with size: ${s}`);
+    
+      s = s > 9 ? 3 : s;
+      window.location.href = `${window.location.href.split("?")[0]}?width=${s}&height=${s}`;
+    }
+
+
+
+
+        }
+      };
+
+      const enableEasyMode = (el) => {
+        const icons = document.querySelectorAll('.mainGrid .row .icon');
+        console.log('easy el checked', el.checked);
+        if (el.checked)
+          icons.forEach((icon, i) => icon.setAttribute('id', `${Math.ceil((i + 1) / w())}${i % w() + 1}`));
+        else icons.forEach((icon) => icon.removeAttribute('id'));
+      };
+    </script>
+  </head>
+
+  <body onload="init()">
+    <div class="main">
+      <h1>Praktinis darbas</h1>
+      <div class="mainGrid"></div>
+      <div class="element-container">
+        <label for="easyModeCheckbox" class="element-label">Įjungti elementų Id (palengvinimas)</label>
+        <input type="checkbox" class="easyMode" id="easyModeCheckbox" />
+      </div>
+    </div>
+  </body>
+</html>
