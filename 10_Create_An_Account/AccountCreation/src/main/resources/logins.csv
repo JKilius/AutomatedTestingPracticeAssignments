@@ -1,0 +1,9 @@
+name, email, password, confirm, errorMessage
+  ""   , kazkas@mail.lt, abc123, abc123, "User name is required"
+j, kazkas@gmai.com, abc123, abc123, User name should be between 4 and 30 characters
+Jonas, "", abc123, abc123, Email address is required
+Jonas, a, abc123, abc123, Email address is invalid
+Jonas, jonas@mail.lt, "", abc123, Password is required
+Jonas, jonas@mail.lt, a, abc123, Password should be between 6 and 30 characters
+Jonas, jonas@mail.lt, abc123, "", Confirm Password is required
+Jonas, jonas@mail.lt, abc123,a ,Passwords don't match!
