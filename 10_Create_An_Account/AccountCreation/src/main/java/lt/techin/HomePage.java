@@ -12,7 +12,8 @@ public class HomePage extends BasePage {
     @FindBy(css = "h1")
     WebElement textIdentifier;
 
-    @FindBy()
+    @FindBy(xpath="//div[contains(@data-testid, 'open-login-view')]/a")
+    WebElement buttonLogin;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -24,5 +25,9 @@ public class HomePage extends BasePage {
 
     public String getPageName() {
         return textIdentifier.getText();
+    }
+
+    public void clickButtonLogin(){
+        buttonLogin.click();
     }
 }
