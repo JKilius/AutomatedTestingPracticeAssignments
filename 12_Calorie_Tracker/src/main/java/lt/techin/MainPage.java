@@ -70,10 +70,10 @@ public class MainPage extends BasePage {
 //    }
 
     public void selectItemToEditByName(String itemName) {
-        WebElement editButtons = driver.findElement(By.xpath("//ul/li[@class='collection-item']/strong[contains(text(), '"+itemName+"')]/../a"));
+        WebElement editButtonss = driver.findElement(By.xpath("//ul/li[@class='collection-item']/strong[contains(text(), '"+itemName+"')]/../a"));
         //Optional<WebElement> targetButton = editButtons.stream().filter(a->a.getText().contains(itemName)).findFirst();
 
-        editButtons.click();
+        editButtonss.click();
 
     }
 
@@ -90,8 +90,10 @@ public class MainPage extends BasePage {
     public int countAllCalories() {
         List<Integer> allCalories = collectionOfAllItemsAndCalories.stream()
                 .map(WebElement::getText)
-                .map(text -> text.split(": ")[1])
-                .map(text -> text.replace("Calories", "").trim())
+                //.map(text -> text.split(": ")[1])
+                .map(text->text.split(" ")[1])
+                //.map(text->text.replace(":", "").trim())
+                //.map(text -> text.replace("Calories", "").trim())
                 .map(Integer::parseInt)
                 .toList();
 
@@ -114,6 +116,9 @@ public class MainPage extends BasePage {
         clickAddMeal();
         enterTextItem("Egg");
         enterNumberOfCalories("70");
+        clickAddMeal();
+        enterTextItem("Cake");
+        enterNumberOfCalories("1700");
         clickAddMeal();
     }
 

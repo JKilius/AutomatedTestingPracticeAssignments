@@ -118,8 +118,11 @@ public class MainPageTest extends BasePageTest{
         mainPage.clickButtonBack();
 
         assertTrue(mainPage.isItemInTheList("Egg"));
+
         assertEquals(mainPage.getAllCalories(), mainPage.countAllCalories());
     }
+
+
 
 
 }
