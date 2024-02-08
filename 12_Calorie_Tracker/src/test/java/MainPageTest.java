@@ -10,23 +10,6 @@ public class MainPageTest extends BasePageTest{
 
     MainPage mainPage;
 
-
-//@ParameterizedTest
-//    @CsvFileSource(files="src/main/resources/items.csv", numLinesToSkip = 1)
-//    void testAddingItemsAndCalories(String item, String calories){
-//    mainPage = new MainPage(driver);
-//
-//
-//
-//    mainPage.enterTextItem(item);
-//    mainPage.enterNumberOfCalories(calories);
-//    mainPage.clickAddMeal();
-//
-//
-//
-//
-//}
-
     @Test
     void testAddItems(){
         mainPage = new MainPage(driver);
@@ -55,8 +38,6 @@ public class MainPageTest extends BasePageTest{
         mainPage.addAListOfItemsAndCalories();
 
         assertEquals(mainPage.getAllCalories(), mainPage.countAllCalories());
-
-        System.out.println(mainPage.getAllItemNames());
     }
 
     @Test
@@ -95,7 +76,6 @@ public class MainPageTest extends BasePageTest{
         mainPage.addAListOfItemsAndCalories();
 
         mainPage.selectItemToEditByName("Egg");
-
         mainPage.clickButtonDeleteMeal();
 
         assertFalse(mainPage.isItemInTheList("Egg"));
@@ -105,12 +85,12 @@ public class MainPageTest extends BasePageTest{
 
     @Test
     void assertIfGoBackFunctionWorks(){
+
         mainPage = new MainPage(driver);
 
         mainPage.addAListOfItemsAndCalories();
 
         mainPage.selectItemToEditByName("Egg");
-
         mainPage.clearInputItem();
 
         mainPage.enterTextItem("Kebabas");
@@ -121,8 +101,4 @@ public class MainPageTest extends BasePageTest{
 
         assertEquals(mainPage.getAllCalories(), mainPage.countAllCalories());
     }
-
-
-
-
 }
