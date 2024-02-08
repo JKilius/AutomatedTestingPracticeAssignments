@@ -12,6 +12,8 @@ public class HomePage extends BasePage {
     @FindBy(css = "h1")
     WebElement textIdentifier;
 
+    @FindBy()
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
